@@ -1,4 +1,9 @@
 build:
   docker:
     web: Dockerfile
-    worker: workers/Dockerfile
+run:
+  web: node ./bin/www
+  worker:
+    command:
+      - node ./workers/dummyWorker.js
+    image: web
