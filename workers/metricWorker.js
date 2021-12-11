@@ -36,7 +36,7 @@ async function processServicesMetrics() {
 }
 
 database.connect().then(() => {
-  setInterval(processServicesMetrics, 10000);
+  processServicesMetrics()
 }).catch((error) => {
   logger.error("Error in metrics worker: ", error)
 })
