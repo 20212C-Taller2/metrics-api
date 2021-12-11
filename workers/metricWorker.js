@@ -29,10 +29,6 @@ function processServicesMetrics() {
           logger.error(error);
         }
       });
-      setTimeout(() => {
-        channel.close();
-        connection.close();
-      }, 500);
     })
     .catch((error) => {
       logger.error("Error in metrics worker: ", error);
