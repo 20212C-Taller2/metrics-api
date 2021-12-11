@@ -3,9 +3,10 @@ const config = require("./../config/config");
 const queue = config.METRICS_QUEUE;
 const database = require("./../model/database");
 const logger = require("../services/log/logService");
-await database.connect();
+
 
 const Metric = require("./../model/schema/metric");
+const {error} = require("../services/log/logService");
 
 async function processServicesMetrics() {
   logger.log(`Starting processing metrics`);
@@ -29,4 +30,9 @@ async function processServicesMetrics() {
   });
 }
 
-setInterval(processServicesMetrics, 10000);
+database.connect().then(() => {
+  setInterval(processServicesMetrics, 10000);
+}).catch((error) => {
+  logger.error("Error in metrics worker: ", error)
+})
+
