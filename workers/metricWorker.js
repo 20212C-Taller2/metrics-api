@@ -1,7 +1,7 @@
 const amqp = require("amqplib");
 const config = require("./../config/config");
 const queue = config.METRICS_QUEUE;
-const database = require("./../model/database");
+const database = require("./../model/Database.js");
 const logger = require("../services/log/logService");
 
 
