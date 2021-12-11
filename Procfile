@@ -1,1 +1,1 @@
-worker: node ./workers/dummyWorker.js
+worker: node ./workers/metricWorker.js
