@@ -21,8 +21,13 @@ async function processServicesMetrics() {
       operation: content.operation,
       date: content.date,
     });
-    await metric.save();
-    channel.ack(message);
+    try {
+      await metric.save();
+      channel.ack(message);
+    } catch (error) {
+      logger.error("Cannot save metrics: ",JSON.stringify(content))
+      logger.error(error)
+    }
     setTimeout(() => {
       channel.close();
       connection.close();
