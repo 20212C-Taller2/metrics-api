@@ -6,7 +6,14 @@ var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
 var metricsRouter = require("./routes/metrics");
-
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./config/swagger.js");
+const swaggerOptions = {
+  explorer: false,
+  swaggerOptions: {
+    validatorUrl: null,
+  },
+};
 var app = express();
 
 // view engine setup
@@ -41,6 +48,7 @@ let handleCorsHeaders = function (req, res, next) {
 app.use(handleCorsHeaders);
 app.use("/", indexRouter);
 app.route("/service/:name").get(metricsRouter.getServiceMetrics);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
